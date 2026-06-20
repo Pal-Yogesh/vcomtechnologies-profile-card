@@ -185,7 +185,7 @@ export default function ProfileCardPreview({ data }: Props) {
               {contacts.map((c, i) => (
                 <div
                   key={c.icon}
-                  className={`flex items-center gap-[14px] py-[11px]${i < contacts.length - 1 ? " border-b border-[#e8e8e8]" : ""}`}
+                  className="flex items-center gap-[14px] border-b border-[#e8e8e8] py-[11px] last:border-b-0"
                 >
                   <img
                     src={c.icon}
