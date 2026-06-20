@@ -326,12 +326,17 @@ export default function ProfileCardPreview({ data }: Props) {
           {/* Footer content — city names */}
           <div className="absolute inset-x-0 bottom-0 flex h-[40px] items-center justify-center px-8">
             <p className="truncate text-[9px] font-medium text-white">
-              {officeAddresses.map((loc, i) => (
-                <span key={loc.city}>
-                  {i > 0 && <span className="mx-[6px] text-[#c4a02f]">•</span>}
-                  {loc.city}
-                </span>
-              ))}
+              {officeAddresses
+                .filter((loc) => !["Mumbai (Vile Parle)", "Gurgaon", "Greater Noida"].includes(loc.city))
+                .map((loc, i) => {
+                  const displayName = loc.city === "Mumbai (Andheri)" ? "Mumbai" : loc.city;
+                  return (
+                    <span key={loc.city}>
+                      {i > 0 && <span className="mx-[6px] text-[#c4a02f]">•</span>}
+                      {displayName}
+                    </span>
+                  );
+                })}
             </p>
           </div>
         </div>
