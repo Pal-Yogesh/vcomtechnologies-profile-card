@@ -17,6 +17,11 @@ export default function ProfileForm({ data, setData }: Props) {
     setData({ ...data, socialMedia: { ...data.socialMedia, [key]: value } });
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/\D/g, "").slice(0, 10);
+    update("phone", raw);
+  };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -62,7 +67,6 @@ export default function ProfileForm({ data, setData }: Props) {
         <label className={labelCls}>Name</label>
         <input
           type="text"
-          placeholder="Arindam Sengupta"
           value={data.name}
           onChange={(e) => update("name", e.target.value)}
           className={inputCls}
@@ -74,7 +78,6 @@ export default function ProfileForm({ data, setData }: Props) {
         <label className={labelCls}>Designation</label>
         <input
           type="text"
-          placeholder="Regional Manager"
           value={data.designation}
           onChange={(e) => update("designation", e.target.value)}
           className={inputCls}
@@ -84,13 +87,18 @@ export default function ProfileForm({ data, setData }: Props) {
       {/* Phone */}
       <div className="mb-5">
         <label className={labelCls}>Phone No</label>
-        <input
-          type="tel"
-          placeholder="+91-9830418293"
-          value={data.phone}
-          onChange={(e) => update("phone", e.target.value)}
-          className={inputCls}
-        />
+        <div className="flex items-center gap-2">
+          <span className="rounded-lg border border-gray-300 bg-gray-50 px-3 py-2.5 text-sm font-medium text-gray-700">
+            +91
+          </span>
+          <input
+            type="tel"
+            value={data.phone}
+            onChange={handlePhoneChange}
+            maxLength={10}
+            className={inputCls}
+          />
+        </div>
       </div>
 
       {/* Email */}
@@ -98,21 +106,8 @@ export default function ProfileForm({ data, setData }: Props) {
         <label className={labelCls}>Email ID</label>
         <input
           type="email"
-          placeholder="name@vcomtechnologies.in"
           value={data.email}
           onChange={(e) => update("email", e.target.value)}
-          className={inputCls}
-        />
-      </div>
-
-      {/* Website */}
-      <div className="mb-5">
-        <label className={labelCls}>Website</label>
-        <input
-          type="url"
-          placeholder="www.vcomtechnologies.in"
-          value={data.website}
-          onChange={(e) => update("website", e.target.value)}
           className={inputCls}
         />
       </div>
@@ -149,7 +144,6 @@ export default function ProfileForm({ data, setData }: Props) {
             <label className={labelCls}>LinkedIn</label>
             <input
               type="url"
-              placeholder="https://linkedin.com/in/..."
               value={data.socialMedia.linkedin}
               onChange={(e) => updateSocial("linkedin", e.target.value)}
               className={inputCls}
@@ -159,7 +153,6 @@ export default function ProfileForm({ data, setData }: Props) {
             <label className={labelCls}>Twitter / X</label>
             <input
               type="url"
-              placeholder="https://x.com/..."
               value={data.socialMedia.twitter}
               onChange={(e) => updateSocial("twitter", e.target.value)}
               className={inputCls}
@@ -169,7 +162,6 @@ export default function ProfileForm({ data, setData }: Props) {
             <label className={labelCls}>Facebook</label>
             <input
               type="url"
-              placeholder="https://facebook.com/..."
               value={data.socialMedia.facebook}
               onChange={(e) => updateSocial("facebook", e.target.value)}
               className={inputCls}
@@ -179,7 +171,6 @@ export default function ProfileForm({ data, setData }: Props) {
             <label className={labelCls}>Instagram</label>
             <input
               type="url"
-              placeholder="https://instagram.com/..."
               value={data.socialMedia.instagram}
               onChange={(e) => updateSocial("instagram", e.target.value)}
               className={inputCls}

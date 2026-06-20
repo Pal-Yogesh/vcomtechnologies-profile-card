@@ -60,15 +60,15 @@ export default function ProfileCardPreview({ data }: Props) {
   const contacts = [
     {
       icon: "/images/details/phone.jpeg",
-      text: data.phone || "+91-9830418293",
+      text: data.phone ? `+91-${data.phone}` : "",
     },
     {
       icon: "/images/details/email.png",
-      text: data.email || "Arindam.s@vcomtechnologies.in",
+      text: data.email || "",
     },
     {
       icon: "/images/details/website.png",
-      text: data.website || "www.vcomtechnologies.in",
+      text: "www.vcomtechnologies.in",
     },
   ];
 
