@@ -123,11 +123,13 @@ export default function ProfileForm({ data, setData }: Props) {
           <option value="" disabled>
             Select office location
           </option>
-          {officeAddresses.map((loc) => (
-            <option key={loc.city} value={loc.city}>
-              {loc.city}
-            </option>
-          ))}
+          {officeAddresses
+            .filter((loc) => !["Mumbai (Vile Parle)", "Gurgaon", "Greater Noida"].includes(loc.city))
+            .map((loc) => (
+              <option key={loc.city} value={loc.city}>
+                {loc.city === "Mumbai (Andheri)" ? "Mumbai" : loc.city}
+              </option>
+            ))}
         </select>
         {data.officeAddress && (
           <p className="mt-2 rounded-md bg-gray-50 p-3 text-xs text-gray-600">
