@@ -14,6 +14,7 @@ const GOLD = "#c4a02f";
 export default function ProfileCardPreview({ data }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const transformRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [scaledHeight, setScaledHeight] = useState<number | undefined>(undefined);
 
@@ -37,17 +38,35 @@ export default function ProfileCardPreview({ data }: Props) {
     };
   }, []);
 
+  // Capture the card at full 820px desktop size, regardless of screen/scale
+  const captureCanvas = async () => {
+    const html2canvas = (await import("html2canvas-pro")).default;
+    const tw = transformRef.current;
+
+    // Neutralize the responsive scale transform during capture
+    const prevTransform = tw?.style.transform ?? "";
+    if (tw) tw.style.transform = "none";
+
+    let canvas: HTMLCanvasElement;
+    try {
+      canvas = await html2canvas(cardRef.current as HTMLElement, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        width: 820,
+        windowWidth: 820,
+      });
+    } finally {
+      if (tw) tw.style.transform = prevTransform;
+    }
+    return canvas;
+  };
+
   const handleDownloadPDF = async () => {
     if (!cardRef.current) return;
 
-    const html2canvas = (await import("html2canvas-pro")).default;
     const { jsPDF } = await import("jspdf");
-
-    const canvas = await html2canvas(cardRef.current, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
+    const canvas = await captureCanvas();
 
     const imgData = canvas.toDataURL("image/png");
     const pdfWidth = canvas.width / 3;
@@ -65,13 +84,7 @@ export default function ProfileCardPreview({ data }: Props) {
   const handleDownloadJPG = async () => {
     if (!cardRef.current) return;
 
-    const html2canvas = (await import("html2canvas-pro")).default;
-
-    const canvas = await html2canvas(cardRef.current, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
+    const canvas = await captureCanvas();
 
     const link = document.createElement("a");
     link.download = `${data.name || "profile"}-card.jpg`;
@@ -165,6 +178,7 @@ export default function ProfileCardPreview({ data }: Props) {
           style={{ width: 820 * scale, height: scaledHeight, margin: "0 auto" }}
         >
           <div
+            ref={transformRef}
             style={{
               transform: `scale(${scale})`,
               transformOrigin: "top left",
@@ -203,7 +217,7 @@ export default function ProfileCardPreview({ data }: Props) {
               </div>
 
               {/* Company Logo */}
-              <div className="mt-7 flex flex-col items-center">
+              <div className="mt-5 flex flex-col items-center">
                 <img
                   src="/logo.png"
                   alt="VCOM Technologies"

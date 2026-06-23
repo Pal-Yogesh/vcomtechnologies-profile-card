@@ -36,7 +36,7 @@ export default function ProfileForm({ data, setData }: Props) {
   const handleOfficeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = officeAddresses.find((o) => o.city === e.target.value);
     if (selected) {
-      update("officeAddress", `${selected.city} — ${selected.address}`);
+      update("officeAddress", `${selected.address}`);
     }
   };
 
