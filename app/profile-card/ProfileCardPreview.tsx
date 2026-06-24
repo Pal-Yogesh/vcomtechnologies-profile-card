@@ -219,7 +219,7 @@ export default function ProfileCardPreview({ data }: Props) {
               {/* Company Logo */}
               <div className="mt-5 flex flex-col items-center">
                 <img
-                  src="/logo.png"
+                  src="/logo.jpeg"
                   alt="VCOM Technologies"
                   className="h-[78px] w-auto object-contain"
                 />

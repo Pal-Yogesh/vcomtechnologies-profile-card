@@ -48,7 +48,7 @@ export default function ProfileForm({ data, setData }: Props) {
     <div className="rounded-2xl bg-white p-6 shadow-md sm:p-8">
       <div className="mb-6 flex items-center justify-between gap-3">
         <h2 className="text-xl font-bold text-[#1a2b5e]">Fill Details</h2>
-        <img src="/logo.png" alt="VCOM" className="h-[40px] w-auto object-contain" />
+        <img src="/logo.jpeg" alt="VCOM" className="h-[40px] w-auto object-contain" />
       </div>
 
       {/* Profile Picture */}
