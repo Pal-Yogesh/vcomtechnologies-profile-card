@@ -53,4 +53,8 @@ export const officeAddresses: OfficeLocation[] = [
     address:
       "Plot-23 Ecotech 12, Near Ek Murti Chowk, Greater Noida - 201306",
   },
+  {
+    city:"Singapore",
+    address:""
+  }
 ];

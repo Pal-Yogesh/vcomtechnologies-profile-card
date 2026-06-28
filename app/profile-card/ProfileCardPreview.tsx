@@ -192,7 +192,7 @@ export default function ProfileCardPreview({ data }: Props) {
               style={{ fontFamily: "'Segoe UI', Arial, sans-serif" }}
             >
           {/* ── Main content area ── */}
-          <div className="flex px-2 pt-8 pb-2">
+          <div className="flex px-2 pt-5 pb-1">
             {/* ▌LEFT COLUMN ▌ */}
             <div className="flex w-[300px] shrink-0 flex-col items-center px-6">
               {/* Profile photo — circular with gold ring */}
@@ -210,38 +210,38 @@ export default function ProfileCardPreview({ data }: Props) {
                 </div>
               </div>
               {/* Diamond separator */}
-              <div className="mt-3 flex items-center gap-[6px]">
+              <div className="mt-2 flex items-center gap-[6px]">
                 <div className="h-px w-[70px] bg-[#c4a02f]"></div>
                 <div className="h-[6px] w-[6px] rotate-45 bg-[#c4a02f]"></div>
                 <div className="h-px w-[70px] bg-[#c4a02f]"></div>
               </div>
 
               {/* Company Logo */}
-              <div className="mt-5 flex flex-col items-center">
+              <div className="mt-1 flex flex-col items-center">
                 <img
                   src="/logo.jpeg"
                   alt="VCOM Technologies"
                   className="h-[78px] w-auto object-contain"
                 />
                 {/* Diamond separator */}
-                <div className="mt-3 flex items-center gap-[6px]">
+                <div className=" flex items-center gap-[6px]">
                   <div className="h-px w-[70px] bg-[#c4a02f]"></div>
                   <div className="h-[6px] w-[6px] rotate-45 bg-[#c4a02f]"></div>
                   <div className="h-px w-[70px] bg-[#c4a02f]"></div>
                 </div>
                 {/* Tagline */}
-                <p className="mt-[10px] py-1 text-[9px] font-semibold tracking-[0.18em] text-[#4a4a4a]">
+                <p className="mt-2 py-1 text-[9px] font-semibold tracking-[0.18em] text-[#4a4a4a]">
                   INSPIRE. INNOVATE. INTEGRATE.
                 </p>
 
                 {/* Diamond separator */}
-                <div className="mt-3 flex items-center gap-[6px]">
+                <div className="mt-2 flex items-center gap-[6px]">
                   <div className="h-px w-[70px] bg-[#c4a02f]"></div>
                   <div className="h-[6px] w-[6px] rotate-45 bg-[#c4a02f]"></div>
                   <div className="h-px w-[70px] bg-[#c4a02f]"></div>
                 </div>
                 {/* Social media icons */}
-                <div className="mt-3 flex items-center gap-[8px]">
+                <div className="mt-2 flex items-center gap-[8px]">
                   {socials.map((s) => (
                     <svg
                       key={s.id}
@@ -279,11 +279,11 @@ export default function ProfileCardPreview({ data }: Props) {
               </div>
 
               {/* Contact info with image icons */}
-              <div className="mt-5">
+              <div className="mt-4">
                 {contacts.map((c) => (
                   <div
                     key={c.icon}
-                    className="flex items-center gap-[14px] border-b border-[#e8e8e8] py-[11px] last:border-b-0"
+                    className="flex items-center gap-[14px] border-b border-[#e8e8e8] py-[8px] last:border-b-0"
                   >
                     <img
                       src={c.icon}
@@ -295,7 +295,7 @@ export default function ProfileCardPreview({ data }: Props) {
                   </div>
                 ))}
                 {/* Address row */}
-                <div className="flex items-center gap-[14px] py-[11px]">
+                <div className="flex items-center gap-[14px] py-[8px]">
                   <img
                     src="/images/details/address.png"
                     alt=""
@@ -309,7 +309,7 @@ export default function ProfileCardPreview({ data }: Props) {
               </div>
 
               {/* Divider with center diamond above pillars */}
-              <div className="mt-5 flex items-center">
+              <div className="mt-1 flex items-center">
                 <div
                   className="h-px flex-1"
                   style={{ backgroundColor: "#e0d3a8" }}
@@ -322,7 +322,7 @@ export default function ProfileCardPreview({ data }: Props) {
               </div>
 
               {/* Pillars — TECHNOLOGY ◆ TRUST ◆ TRANSFORMATION */}
-              <div className="mt-4 flex items-center justify-between px-1">
+              <div className="mt-3 flex items-center justify-between px-1">
                 {pillars.flatMap((p, i) => {
                   const item = (
                     <div key={p.label} className="flex items-center gap-[8px]">
@@ -350,7 +350,7 @@ export default function ProfileCardPreview({ data }: Props) {
           </div>
 
           {/* ── Bottom bar — notched navy footer with gold trim ── */}
-          <div className="relative mt-5">
+          <div className="relative mt-1">
             <svg
               className="block w-full"
               viewBox="0 0 820 60"
@@ -371,7 +371,7 @@ export default function ProfileCardPreview({ data }: Props) {
 
             {/* Footer content — city names */}
             <div className="absolute inset-x-0 bottom-0 flex h-[40px] items-center justify-center px-8">
-              <p className="truncate text-[9px] font-medium text-white">
+              <p className="truncate text-[12px] font-bold text-white">
                 {officeAddresses
                   .filter(
                     (loc) =>
@@ -379,18 +379,19 @@ export default function ProfileCardPreview({ data }: Props) {
                         loc.city
                       )
                   )
-                  .map((loc, i) => {
-                    const displayName =
-                      loc.city === "Mumbai (Andheri)" ? "Mumbai" : loc.city;
-                    return (
-                      <span key={loc.city}>
-                        {i > 0 && (
-                          <span className="mx-[6px] text-[#c4a02f]">•</span>
-                        )}
-                        {displayName}
-                      </span>
-                    );
-                  })}
+                  .map((loc) => ({
+                    displayName:
+                      loc.city === "Mumbai (Andheri)" ? "Mumbai" : loc.city,
+                  }))
+                  .sort((a, b) => a.displayName.localeCompare(b.displayName))
+                  .map((loc, i) => (
+                    <span key={loc.displayName}>
+                      {i > 0 && (
+                        <span className="mx-[6px] text-[#c4a02f]">•</span>
+                      )}
+                      {loc.displayName}
+                    </span>
+                  ))}
               </p>
             </div>
           </div>
